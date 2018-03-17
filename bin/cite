@@ -1,0 +1,51 @@
+#!/bin/bash
+
+CITECREATOR_VESION="0.0.1"
+
+function get_title_from_url {
+    TITLE=`curl -s ${1} | ggrep -oP "(?<=<title>)(.+)(?=</title>)"`
+    echo "「${TITLE}」"
+    echo ${1}
+}
+
+function add_citation {
+    echo "===== (抜粋開始) ====="
+    echo ""
+    echo "===== (抜粋終了) ====="
+}
+
+function usage_exit {
+    echo "Usage: cite [-c] [-v] [-h] https://.........." 1>&2
+    exit 1
+}
+
+if [ -z $1 ]; then
+    usage_exit
+fi
+
+
+CITATION=0
+
+while getopts "chv" OPT ;
+do
+    case $OPT in
+        c)
+            CITATION=1
+            shift 1
+            continue
+            ;;
+        h)
+            usage_exit
+            ;;
+        v)
+            echo "CiteCreator version $CITECREATOR_VESION"
+            exit
+            ;;
+  esac
+done
+
+get_title_from_url $1
+
+if [ $CITATION -eq 1 ]; then
+  add_citation
+fi
