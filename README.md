@@ -4,8 +4,8 @@
 # Install (OSX)
 
 ```
-$ brew tap hayashier/cite
-$ brew install cite
+$ brew tap hayashier/cite-creator
+$ brew install cite-creator
 ```
 
 # Usage
